@@ -85,16 +85,20 @@
         </div>
         
       	<div class="owl-carousel nonloop-block-13">
-        <% 
+        <%
+        String filename="";
+    	String web_path="/resources/images/";
+    	ServletContext applications = request.getServletContext();
+    	String realFolder = applications.getRealPath(web_path);
+    	
         DAO dao = new DAO();
         ArrayList<Lesson> li = (ArrayList<Lesson>)dao.showLesson();
         for(Lesson ls : li){
         	pageContext.setAttribute("ls", ls);
         %>
-        	             
       		<form class="form-detail" action="lesson/detailLesson.jsp?id=<%=ls.getL_id() %>" method="post">
       			<div class="test">
-      				<img src="./resources/images/<%=ls.getFilename()%>" alt="Image" class="img-fluid" style=height:300px; >	
+      				<img src="<%=realFolder %><%=ls.getFilename()%>" alt="Image" class="img-fluid" style=height:300px; >	
         			<input type="submit" class="btn btn-secondary"  value="<%=ls.getLesson() %> &raquo; ">       	
       	 		</div>
        		</form>
